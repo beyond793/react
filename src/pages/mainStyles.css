@@ -1,0 +1,135 @@
+/* @font-face {
+  font-family: "vazir";
+  src: url(./Fonts/vazir-font-v27.2.2-Fontjo.com/Vazir-Black.woff2)
+    format("woffe");
+  src: url(./Fonts/vazir-font-v27.2.2-Fontjo.com/Vazir-Black.eot)
+    format("embeded opentype");
+  src: url(./Fonts/vazir-font-v27.2.2-Fontjo.com/Vazir-Black.woff)
+    format("woffe");
+  src: url(./Fonts/vazir-font-v27.2.2-Fontjo.com/Vazir-Black.ttf)
+    format("truetype");
+} */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: vazir;
+}
+
+:root {
+  --primaryColor: #6d28d9;
+  --secondaryColor: #ede9fe;
+  --maineWithe: #f0eeee;
+  --mainBlack: #222;
+  --mainGray: #7c7c7c;
+  --mainSpacing: 0.1rem;
+  --mainTransition: all 0.3s linear;
+  --mainRed: #db2777;
+  --bodyColor: #ffffff;
+  --blue: #00226c;
+}
+body {
+  color: var(--mainBlack);
+  background-color: var(--bodyColor);
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--blue);
+  height: 25px;
+  width: 100%;
+}
+.header-icon-handler {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+.text-input {
+  color: var(--blue);
+  font-size: 14px;
+  padding-bottom: 8px;
+}
+.text {
+  font-size: 1.5rem;
+  color: var(--blue);
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+.input {
+  font-size: 1.6rem;
+  color: var(--mainBlack);
+  margin-top: 12rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-controller {
+  width: 25%;
+  border: 1px #d1d1d1 solid;
+  padding: 0 15px 15px 0;
+  border-radius: 4px;
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
+    rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  text-align: center;
+}
+
+.input-controller:focus {
+  border: 3px rgba(124, 77, 255, 0.397) solid;
+  /* transition: 0.2s; */
+}
+.button-possition {
+  position: relative;
+}
+
+.button {
+  position: absolute;
+  bottom: 1px;
+  right: 205px;
+}
+
+.middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 2.2rem;
+  color: var(--blue);
+  padding: 20px 0px 50px 0px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: var(--blue);
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-text {
+  font-size: 15px;
+  color: var(--maineWithe);
+}
