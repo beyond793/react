@@ -1,41 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import "./mainStyles.css";
-
+export const BASE_URL = "http://localhost:8000/api";
 const Main = () => {
+  const [formInput, setFormInput] = useState(null);
+  // const [hasError, setHasError] = useState(false);
+  const handleChangeInput = (e) => {
+    const { value } = e.target;
+    setFormInput(value);
+  };
+  const apiCall = async (e) => {
+    e.preventDefault();
+    if (!formInput) console.log("pls enter someth");
+    else {
+      const response = await fetch(`${BASE_URL}/search/${formInput}`, {
+        method: "GET",
+        mode: "cors", // no-cors, *cors, same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "same-origin", // include, *same-origin, omit
+        headers: {
+          "Content-Type": "application/json",
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: "follow", // manual, *follow, error
+        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      });
+    }
+  };
+
   return (
     <div className="body">
-      <header class="header">
-        <span class="header-icon-handler">
-          <button class="login-button">
+      <header className="header">
+        <span className="header-icon-handler">
+          <button className="login-button">
             <a href="./login">Login page</a>
           </button>
-          <i class="fa-thin fa-user"></i>
+          <i className="fa-thin fa-user"></i>
         </span>
       </header>
-      <form action="" class="form">
-        <div class="logo">
+      <form action="" className="form">
+        <div className="logo">
           <img
             src="https://tracking.post.ir/Content/Image/postarm.png"
             alt="post logo"
           />
         </div>
-        <span class="text">
+        <span className="text">
           <strong>سامانه پیگیری مرسولات شرکتی پست ایلام</strong>
         </span>
-        <div class="input">
-          <span class="text-input">
+        <div className="input">
+          <span className="text-input">
             <strong>لطفا کد پیگیری خود را در این محل وراد کنید</strong>
           </span>
-          <input type="text" class="input-controller" />
-          <div class="button-possition">
-            <button class="button-main">
-              <span class="search-icon-holder"></span>
+          <input
+            type="text"
+            className="input-controller"
+            onChange={handleChangeInput}
+          />
+          <div className="button-possition">
+            <button className="button-main" onClick={apiCall}>
+              <span className="search-icon-holder"></span>
               search
             </button>
           </div>
         </div>
       </form>
-      <article class="middle">
+      <article className="middle">
         <h4>شرکت ملی پست جمهوری اسلامی ایران</h4>
         <h5>معاونت توسعه فناوری اطلاعات، امنیت شبکه و هوشمندسازی</h5>
         <h6>
@@ -53,9 +82,9 @@ const Main = () => {
           ملی پست مراجعه فرمائید
         </h6>
       </article>
-      <footer class="footer">
-        <div class="item-control">
-          <li class="list-item">
+      <footer className="footer">
+        <div className="item-control">
+          <li className="list-item">
             <ul>
               <a href="https://www.post.ir/">پرتال شرکت ملی پست</a>
             </ul>
@@ -69,7 +98,7 @@ const Main = () => {
               <a href="http://www.ebazaar-post.ir/"> بازار الکترونیک</a>
             </ul>
           </li>
-          <span class="footer-text">
+          <span className="footer-text">
             توسعه داده شده توسط تیم طراحی و توسعه کبیرکوه
           </span>
         </div>
