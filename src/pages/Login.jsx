@@ -8,7 +8,7 @@ const Login = () => {
     email: "",
     phoneNumber: "",
     description: "",
-    gender: "",
+    status: "",
   });
   const handleChangeInput = (e) => {
     const { id, value } = e.target;
@@ -30,103 +30,89 @@ const Login = () => {
       referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify(formData),
     });
-    console.info(response);
   };
 
   return (
-    <div class="container">
-      <div class="title">Registration</div>
-      <div class="content">
-        <form action="#">
-          <div class="user-details">
-            <div class="input-box">
-              <span class="details">Full Name</span>
-              <input
-                type="text"
-                placeholder="Enter your name"
-                required
-                id="name"
-                onChange={handleChangeInput}
-              />
-            </div>
-            <div class="input-box">
-              <span class="details">Destination</span>
-              <input
-                type="text"
-                placeholder="Enter your Destination"
-                required
-                id="destination"
-                onChange={handleChangeInput}
-              />
-            </div>
-            <div class="input-box">
-              <span class="details">Email</span>
-              <input
-                type="text"
-                placeholder="Enter your email"
-                required
-                id="email"
-                onChange={handleChangeInput}
-              />
-            </div>
-            <div class="input-box">
-              <span class="details">Phone Number</span>
-              <input
-                type="text"
-                placeholder="Enter your number"
-                required
-                id="phoneNumber"
-                onChange={handleChangeInput}
-              />
-            </div>
-            <div class="input-box">
-              <span class="input-box details">
-                Description
-                <textarea
-                  name="Description"
-                  cols="97"
-                  rows="10"
-                  placeholder="Enter your Description"
+    <div className="login-page">
+      <div class="container">
+        <div class="title">ثبت مرسوله </div>
+        <div class="content">
+          <form action="#">
+            <div class="user-details">
+              <div class="input-box">
+                <span class="details">نام و نام خانوادگی</span>
+                <input
+                  type="text"
+                  placeholder="نام و نام خانوادگی خود را وارد کنید"
                   required
-                  id="description"
+                  id="name"
                   onChange={handleChangeInput}
                 />
-              </span>
-            </div>
-            {/* <div class="input-box">
+              </div>
+              <div class="input-box">
+                <span class="details">ارسال به</span>
+                <input
+                  type="text"
+                  placeholder="مقصد مورد نظر را وارد کنید"
+                  required
+                  id="destination"
+                  onChange={handleChangeInput}
+                />
+              </div>
+              <div class="input-box">
+                <span class="details">ادرس ایمیل</span>
+                <input
+                  type="text"
+                  placeholder="آدرس ایمیل را وارد کنید"
+                  required
+                  id="email"
+                  onChange={handleChangeInput}
+                />
+              </div>
+              <div class="input-box">
+                <span class="details">شماره تماس</span>
+                <input
+                  type="text"
+                  placeholder="شماره تماس را وارد کنید"
+                  required
+                  id="phoneNumber"
+                  onChange={handleChangeInput}
+                />
+              </div>
+              <div class="input-box">
+                <span class="details">وضعیت</span>
+                <input
+                  type="text"
+                  placeholder="وضعیت مرسوله را مشخص کنید"
+                  required
+                  id="status"
+                  onChange={handleChangeInput}
+                />
+              </div>
+              <div class="input-box">
+                <span class="input-box details">
+                  توضیحات
+                  <textarea
+                    name="Description"
+                    cols="32.5"
+                    rows="2"
+                    placeholder="توضیحات خود را وارد کنید"
+                    required
+                    id="description"
+                    onChange={handleChangeInput}
+                  />
+                </span>
+              </div>
+              {/* <div class="input-box">
               <span class="details">Confirm Password</span>
               <input type="text" placeholder="Confirm your password" required />
             </div> */}
-          </div>
-          <div class="gender-details">
-            <input
-              type="radio"
-              name="gender"
-              id="name"
-              onChange={handleChangeInput}
-            />
-            <input type="radio" name="gender" onChange={handleChangeInput} />
-            <input type="radio" name="gender" onChange={handleChangeInput} />
-            <span class="gender-title">Gender</span>
-            {/* <div class="category">
-              <label for="dot-1">
-                <span class="dot one"></span>
-                <span class="gender">Male</span>
-              </label>
-              <label for="dot-2">
-                <span class="dot two"></span>
-                <span class="gender">Female</span>
-              </label>
-              <label for="dot-3">
-                <span class="dot three"></span>
-                <span class="gender">Prefer not to say</span>
-              </label>
-            </div> */}
-          </div>
-          <div class="button">
-            <input type="submit" value="Register" onClick={apiCall} />
-          </div>
-        </form>
+            </div>
+            <div class="button">
+              <input type="submit" value="ثبت مرسوله" onClick={apiCall} />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

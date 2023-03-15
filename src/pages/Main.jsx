@@ -3,11 +3,11 @@ import "./mainStyles.css";
 
 const Main = () => {
   return (
-    <div>
+    <div className="body">
       <header class="header">
         <span class="header-icon-handler">
           <button class="login-button">
-            <a href="./login.html">cl</a>
+            <a href="./login">Login page</a>
           </button>
           <i class="fa-thin fa-user"></i>
         </span>
@@ -28,10 +28,9 @@ const Main = () => {
           </span>
           <input type="text" class="input-controller" />
           <div class="button-possition">
-            <button class="button">
-              <span class="search-icon-holder">
-                <i class="fa-sharp fa-regular fa-magnifying-glass"></i>
-              </span>
+            <button class="button-main">
+              <span class="search-icon-holder"></span>
+              search
             </button>
           </div>
         </div>
