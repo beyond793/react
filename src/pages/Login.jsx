@@ -1,21 +1,26 @@
+import { Grid, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
+import Form from "./components/Form/Form";
+import ModalWrapper from "./components/Modal";
 import DialogAlert from "./DialogAlert";
 import "./loginStyles.css";
 import { BASE_URL } from "./Main";
 
+const initialState = {
+  name: "",
+  address: "",
+  email: "",
+  phonenumber: "",
+  description: "",
+  status: "",
+};
+
 const Login = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    address: "",
-    email: "",
-    phonenumber: "",
-    description: "",
-    status: "",
-  });
+  const [formData, setFormData] = useState(initialState);
   //dialog Controller
   const [openDialog, setOpenDialog] = useState(false);
-
+  const [latestId, setLatestId] = useState(null);
   const handleClickOpenDialog = () => {
     setOpenDialog(true);
   };
@@ -29,8 +34,8 @@ const Login = () => {
   };
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleCloseModal = () => {
+    setLatestId(null);
   };
 
   const handleClose = () => {
@@ -38,21 +43,21 @@ const Login = () => {
   };
   const apiCall = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    axios.post("http://localhost:8000/api/create-post", formData);
-    // const response = await fetch(`${BASE_URL}/create-post`, {
-    //   method: "POST",
-    //   // mode: "cors", // no-cors, *cors, same-origin
-    //   // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    //   // credentials: "same-origin", // include, *same-origin, omit
-    //   headers: {
-    //     "Content-Type": "application/json; charset=UTF-8",
-    //   },
-    //   // redirect: "follow", // manual, *follow, error
-    //   // referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    //   body: JSON.stringify(formData),
-    // });
-    // handleClickOpenDialog();
+    const response = await axios.post(
+      "http://localhost:8000/api/create-post",
+      formData
+    );
+    if (response.status === 200) {
+      const getLatestApi = await axios.get(
+        "http://localhost:8000/api/lastvalue"
+      );
+      if (getLatestApi.status === 200) {
+        const { data } = getLatestApi;
+        const { id } = data[0];
+        setLatestId(id);
+      }
+    }
+    setFormData(initialState);
   };
 
   return (
@@ -62,83 +67,30 @@ const Login = () => {
         <div className="container">
           <div className="title">ثبت مرسوله </div>
           <div className="content">
-            <form action="#">
-              <div className="user-details">
-                <div className="input-box">
-                  <span className="details">نام و نام خانوادگی</span>
-                  <input
-                    type="text"
-                    placeholder="نام و نام خانوادگی خود را وارد کنید"
-                    required
-                    id="name"
-                    onChange={handleChangeInput}
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">ارسال به</span>
-                  <input
-                    type="text"
-                    placeholder="مقصد مورد نظر را وارد کنید"
-                    required
-                    id="address"
-                    onChange={handleChangeInput}
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">ادرس ایمیل</span>
-                  <input
-                    type="text"
-                    placeholder="آدرس ایمیل را وارد کنید"
-                    required
-                    id="email"
-                    onChange={handleChangeInput}
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">شماره تماس</span>
-                  <input
-                    type="text"
-                    placeholder="شماره تماس را وارد کنید"
-                    required
-                    id="phonenumber"
-                    onChange={handleChangeInput}
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">وضعیت</span>
-                  <input
-                    type="text"
-                    placeholder="وضعیت مرسوله را مشخص کنید"
-                    required
-                    id="status"
-                    onChange={handleChangeInput}
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="input-box details">
-                    توضیحات
-                    <textarea
-                      name="Description"
-                      cols="32.5"
-                      rows="2"
-                      placeholder="توضیحات خود را وارد کنید"
-                      required
-                      id="description"
-                      onChange={handleChangeInput}
-                    />
-                  </span>
-                </div>
-                {/* <div className="input-box">
-              <span className="details">Confirm Password</span>
-              <input type="text" placeholder="Confirm your password" required />
-            </div> */}
-              </div>
-              <div className="button">
-                <input type="submit" value="ثبت مرسوله" onClick={apiCall} />
-              </div>
-            </form>
+            <Form
+              handleChangeInput={handleChangeInput}
+              apiCall={apiCall}
+              formData={formData}
+            />
           </div>
         </div>
+        <ModalWrapper open={latestId} onClose={handleCloseModal}>
+          <Grid
+            container
+            alignContent="center"
+            justifyContent="center"
+            p={2}
+            flexDirection="column"
+            textAlign="center"
+          >
+            <Typography fontSize="18px" fontFamily="inherit">
+              مرسوله شما با شناسه {latestId} ثبت شد
+            </Typography>
+            <Typography fontSize="18px" fontFamily="inherit">
+              برای رهگیری به صفحه اصلی مراجعه کنید
+            </Typography>
+          </Grid>
+        </ModalWrapper>
       </div>
     </>
   );

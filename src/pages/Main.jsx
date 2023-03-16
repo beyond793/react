@@ -1,39 +1,80 @@
+import { Typography } from "@mui/material";
+import axios from "axios";
 import React, { useState } from "react";
+import Form from "./components/Form/Form";
+import ModalWrapper from "./components/Modal";
 import "./mainStyles.css";
 export const BASE_URL = "http://localhost:8000/api";
 const Main = () => {
   const [formInput, setFormInput] = useState(null);
-  // const [hasError, setHasError] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({
+    address: "",
+    description: "",
+    email: "",
+    id: null,
+    name: "",
+    phonenumber: "",
+    status: "",
+  });
   const handleChangeInput = (e) => {
     const { value } = e.target;
+    setError(null);
     setFormInput(value);
   };
   const apiCall = async (e) => {
     e.preventDefault();
     if (!formInput) console.log("pls enter someth");
     else {
-      const response = await fetch(`${BASE_URL}/search/${formInput}`, {
-        method: "GET",
-        mode: "cors", // no-cors, *cors, same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
-        headers: {
-          "Content-Type": "application/json",
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: "follow", // manual, *follow, error
-        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      });
+      const response = await axios.get(`${BASE_URL}/search/${formInput}`);
+      if (response.status === 200) {
+        const { data } = response;
+        if (data.length > 0) {
+          setShowModal(true);
+          setFormData(data[0]);
+        } else {
+          setError("داده ای با شناسه وارد شده وجود ندارد");
+        }
+      }
     }
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
+  const handleChangeFormInput = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevState) => ({ ...prevState, [id]: value }));
+  };
+  const updateApi = async () => {
+    await axios.put(`${BASE_URL}/update/${formData.id}`, formData);
+    closeModal();
+  };
+  const deleteApi = async () => {
+    await axios.delete(`${BASE_URL}/delete/${formData.id}`);
+    closeModal();
   };
 
   return (
     <div className="body">
+      <ModalWrapper open={showModal} onClose={closeModal}>
+        <div className="container">
+          <div className="content">
+            <Form
+              formData={formData}
+              handleChangeInput={handleChangeFormInput}
+              updateApi={updateApi}
+              deleteApi={deleteApi}
+              edit
+            />
+          </div>
+        </div>
+      </ModalWrapper>
       <header className="header">
         <span className="header-icon-handler">
           <span className="login-button">
             <a className="a-tag" href="./login">
-              Login page
+              ثبت مرسوله
             </a>
           </span>
           <i className="fa-thin fa-user"></i>
@@ -66,6 +107,19 @@ const Main = () => {
           </div>
         </div>
       </form>
+
+      {error && (
+        <Typography
+          color="red"
+          textAlign="center"
+          width="100%"
+          fontSize="18px"
+          fontFamily="inherit"
+          m={1}
+        >
+          {error}
+        </Typography>
+      )}
       <article className="middle">
         <h4>شرکت ملی پست جمهوری اسلامی ایران</h4>
         <h5>معاونت توسعه فناوری اطلاعات، امنیت شبکه و هوشمندسازی</h5>
