@@ -31,9 +31,11 @@ const Main = () => {
     <div className="body">
       <header className="header">
         <span className="header-icon-handler">
-          <button className="login-button">
-            <a href="./login">Login page</a>
-          </button>
+          <span className="login-button">
+            <a className="a-tag" href="./login">
+              Login page
+            </a>
+          </span>
           <i className="fa-thin fa-user"></i>
         </span>
       </header>
@@ -78,7 +80,7 @@ const Main = () => {
         <h6>
           در صورت هرگونه ابهام ، سوال و نیاز به اطلاعات بیشتر با شماره تلفن 193
           واحد ارتباط با مشتریان و در صورت ضرورت به ثبت شکایت به
-          <a href="https://eop.post.ir/">سامانه ثبت و پیگیری شکایات </a>
+          <a href="https://eop.post.ir/"> سامانه ثبت و پیگیری شکایات </a>
           ملی پست مراجعه فرمائید
         </h6>
       </article>
@@ -86,16 +88,26 @@ const Main = () => {
         <div className="item-control">
           <li className="list-item">
             <ul>
-              <a href="https://www.post.ir/">پرتال شرکت ملی پست</a>
+              <a className="a-tag" href="https://www.post.ir/">
+                پرتال شرکت ملی پست
+              </a>
             </ul>
             <ul>
-              <a href="https://ecard.post.ir/">سفارش آنلاین کارت پستال</a>
+              <a className="a-tag" href="https://ecard.post.ir/">
+                سفارش آنلاین کارت پستال
+              </a>
             </ul>
             <ul>
-              <a href="https://mail.post.ir/"> سرویس پست الکترونیک</a>
+              <a className="a-tag" href="https://mail.post.ir/">
+                {" "}
+                سرویس پست الکترونیک
+              </a>
             </ul>
             <ul>
-              <a href="http://www.ebazaar-post.ir/"> بازار الکترونیک</a>
+              <a className="a-tag" href="http://www.ebazaar-post.ir/">
+                {" "}
+                بازار الکترونیک
+              </a>
             </ul>
           </li>
           <span className="footer-text">

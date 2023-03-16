@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import DialogAlert from "./DialogAlert";
 import "./loginStyles.css";
@@ -6,9 +7,9 @@ import { BASE_URL } from "./Main";
 const Login = () => {
   const [formData, setFormData] = useState({
     name: "",
-    destination: "",
+    address: "",
     email: "",
-    phoneNumber: "",
+    phonenumber: "",
     description: "",
     status: "",
   });
@@ -37,21 +38,21 @@ const Login = () => {
   };
   const apiCall = async (e) => {
     e.preventDefault();
-
+    console.log(formData);
+    axios.post("http://localhost:8000/api/create-post", formData);
     // const response = await fetch(`${BASE_URL}/create-post`, {
     //   method: "POST",
-    //   mode: "cors", // no-cors, *cors, same-origin
-    //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    //   credentials: "same-origin", // include, *same-origin, omit
+    //   // mode: "cors", // no-cors, *cors, same-origin
+    //   // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    //   // credentials: "same-origin", // include, *same-origin, omit
     //   headers: {
-    //     "Content-Type": "application/json",
-    //     // 'Content-Type': 'application/x-www-form-urlencoded',
+    //     "Content-Type": "application/json; charset=UTF-8",
     //   },
-    //   redirect: "follow", // manual, *follow, error
-    //   referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    //   // redirect: "follow", // manual, *follow, error
+    //   // referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     //   body: JSON.stringify(formData),
     // });
-    handleClickOpenDialog();
+    // handleClickOpenDialog();
   };
 
   return (
@@ -79,7 +80,7 @@ const Login = () => {
                     type="text"
                     placeholder="مقصد مورد نظر را وارد کنید"
                     required
-                    id="destination"
+                    id="address"
                     onChange={handleChangeInput}
                   />
                 </div>
@@ -99,7 +100,7 @@ const Login = () => {
                     type="text"
                     placeholder="شماره تماس را وارد کنید"
                     required
-                    id="phoneNumber"
+                    id="phonenumber"
                     onChange={handleChangeInput}
                   />
                 </div>

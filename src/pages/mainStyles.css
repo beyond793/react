@@ -134,3 +134,9 @@
   font-size: 15px;
   color: var(--maineWithe);
 }
+
+.a-tag {
+  color: #ffd900;
+  padding: 1px 10px 10px 1px;
+  text-decoration: none;
+}
